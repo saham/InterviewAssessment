@@ -1,5 +1,5 @@
-class ReportViewModel {
-    private let networkService = NetworkService()
+final class ReportViewModel {
+    private let networkService: NetworkService
     private let urlString: String
     var reportName = "Lab Report"
     var testPerformer = "Unknown"
@@ -7,8 +7,9 @@ class ReportViewModel {
     var observations: [VitalObservationModel] = []
     var summaryDate: String { dateTime.shortDate }
     var detailDate: String { dateTime.longDate }
-    init(urlString: String) {
+    init(urlString: String, networkService: NetworkService = NetworkService()) {
         self.urlString = urlString
+        self.networkService = networkService
     }
     
     func loadReport() async throws {
@@ -23,9 +24,9 @@ class ReportViewModel {
                   let resourceType = resource.resourceType else { continue }
             
             switch resourceType {
-            case AppConstant.Strings.diagnosticReport:
+            case AppConstant.Titles.diagnosticReport:
                 report = resource
-            case AppConstant.Strings.observation:
+            case AppConstant.Titles.observation:
                 if let id = resource.id {
                     observationsByReference["Observation/\(id)"] = resource
                 }
@@ -46,7 +47,6 @@ class ReportViewModel {
                 testName: resource.code?.text,
                 value: resource.valueQuantity?.value,
                 unit: resource.valueQuantity?.unit,
-                interpretation: resource.interpretation?.first?.coding?.first?.code,
                 rangeLow: resource.referenceRange?.first?.low?.value,
                 rangeHigh: resource.referenceRange?.first?.high?.value
             )
