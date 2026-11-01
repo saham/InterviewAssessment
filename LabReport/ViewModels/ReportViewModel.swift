@@ -1,3 +1,4 @@
+@MainActor
 final class ReportViewModel {
     private let networkService: NetworkService
     private let urlString: String
@@ -7,7 +8,7 @@ final class ReportViewModel {
     var observations: [VitalObservationModel] = []
     var summaryDate: String { dateTime.shortDate }
     var detailDate: String { dateTime.longDate }
-    init(urlString: String, networkService: NetworkService = NetworkService()) {
+    init(urlString: String, networkService: NetworkService) {
         self.urlString = urlString
         self.networkService = networkService
     }

@@ -1,7 +1,7 @@
 import UIKit
-
+@MainActor
 class RecordsViewController: UIViewController {
-    private let viewModel = ReportViewModel(urlString: AppConstant.Network.urlString)
+    private let viewModel = ReportViewModel(urlString: AppConstant.Network.urlString, networkService: NetworkService())
 
     private let cardView: UIView = {
         let view = UIView()
@@ -48,8 +48,7 @@ class RecordsViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = .systemBackground
-        navigationItem.title = "Records"
-        adjustNavigationBar()
+        adjustNavigationBar(title: "Records")
  
         view.addSubview(cardView)
         cardView.addSubview(iconImageView)

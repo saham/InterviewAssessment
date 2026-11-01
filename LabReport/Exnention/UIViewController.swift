@@ -1,6 +1,6 @@
 import UIKit
 extension UIViewController {
-    func adjustNavigationBar() {
+    func adjustNavigationBar(title:String = "Home") {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = UIColor.systemBlue
@@ -9,5 +9,6 @@ extension UIViewController {
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.title = title
     }
 }

@@ -8,9 +8,7 @@ class HomeViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = .systemBackground
-        title = "Home"
-       adjustNavigationBar()
- 
+        adjustNavigationBar()
         let label = UILabel()
         label.text = "Demo App"
         label.font = .systemFont(ofSize: 24, weight: .bold)
