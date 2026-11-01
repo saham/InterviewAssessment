@@ -1,3 +1,6 @@
+import Foundation
+import ModelsR4
+
 @MainActor
 final class ReportViewModel {
     private let networkService: NetworkService
@@ -8,48 +11,58 @@ final class ReportViewModel {
     var observations: [VitalObservationModel] = []
     var summaryDate: String { dateTime.shortDate }
     var detailDate: String { dateTime.longDate }
+
     init(urlString: String, networkService: NetworkService) {
         self.urlString = urlString
         self.networkService = networkService
     }
-    
+
     func loadReport() async throws {
         let bundle = try await networkService.fetchDiagnosticReport(from: urlString)
         guard let entries = bundle.entry else { throw ReportError.noEntries }
-        
-        var report: Resource?
-        var observationsByReference: [String: Resource] = [:]
-        
+
+        var report: DiagnosticReport?
+        var observationsByReference: [String: Observation] = [:]
+
         for entry in entries {
-            guard let resource = entry.resource,
-                  let resourceType = resource.resourceType else { continue }
-            
-            switch resourceType {
-            case AppConstant.Titles.diagnosticReport:
-                report = resource
-            case AppConstant.Titles.observation:
-                if let id = resource.id {
-                    observationsByReference["Observation/\(id)"] = resource
+            switch entry.resource {
+            case .diagnosticReport(let value):
+                report = value
+            case .observation(let value):
+                if let id = value.id?.value?.string {
+                    observationsByReference["Observation/\(id)"] = value
                 }
-            default: break
+            default:
+                break
             }
         }
-        
+
         guard let report else { throw ReportError.noReport }
-        
-        reportName = report.code?.text ?? "Lab Report"
-        testPerformer = report.performer?.first?.display ?? "Unknown"
-        dateTime = report.effectiveDateTime ?? report.issued ?? ""
-        
+
+        reportName = report.code.text?.value?.string ?? "Lab Report"
+        testPerformer = report.performer?.first?.display?.value?.string ?? "Unknown"
+
+        var effective: String?
+        if case .dateTime(let value)? = report.effective {
+            effective = value.value?.description
+        }
+        dateTime = effective ?? report.issued?.value?.description ?? ""
         observations = (report.result ?? []).compactMap { reference in
-            guard let key = reference.reference,
-                  let resource = observationsByReference[key] else { return nil }
+            guard let key = reference.reference?.value?.string,
+                  let observation = observationsByReference[key] else { return nil }
+
+            var quantity: Quantity?
+            if case .quantity(let value)? = observation.value {
+                quantity = value
+            }
+            let range = observation.referenceRange?.first
+
             return VitalObservationModel(
-                testName: resource.code?.text,
-                value: resource.valueQuantity?.value,
-                unit: resource.valueQuantity?.unit,
-                rangeLow: resource.referenceRange?.first?.low?.value,
-                rangeHigh: resource.referenceRange?.first?.high?.value
+                testName: observation.code.text?.value?.string,
+                value: quantity?.toDouble,
+                unit: quantity?.unit?.value?.string,
+                rangeLow: range?.low?.toDouble,
+                rangeHigh: range?.high?.toDouble
             )
         }
     }
