@@ -48,7 +48,7 @@ class RecordsViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = .systemBackground
-        title = "Records"
+        navigationItem.title = "Records"
         adjustNavigationBar()
  
         view.addSubview(cardView)
