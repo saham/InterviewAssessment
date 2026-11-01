@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let recordsNav = UINavigationController(rootViewController: RecordsViewController())
         recordsNav.tabBarItem = UITabBarItem(
-            title: "Records",
+            title: "Report",
             image: .person,
             selectedImage: .personFilled
         )

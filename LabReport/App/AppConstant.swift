@@ -1,4 +1,4 @@
-struct AppConstant {
+enum AppConstant {
     enum Titles {
         static let labTitle = "Lab and Diagnostics"
         static let resultTitle = "Results for blood, urine, and general lab."
