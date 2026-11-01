@@ -61,7 +61,7 @@ class LabSummaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        setData()
+        setDates()
     }
 
     private func setupUI() {
@@ -102,7 +102,7 @@ class LabSummaryViewController: UIViewController {
         ])
     }
 
-    private func setData() {
+    private func setDates() {
         titleLabel.text = viewModel.reportName
         dateLabel.text = viewModel.summaryDate
     }
