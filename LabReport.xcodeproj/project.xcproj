@@ -10,6 +10,15 @@
       "Base",
     ],
   },
+  "packages": [
+    {
+      "kind": "remote",
+      "repository": "https://github.com/apple/FHIRModels.git",
+      "version": {
+        "up-to-next-major-version": "0.9.4",
+      },
+    },
+  ],
   "files": [
     {
       "kind": "folder",
@@ -46,6 +55,13 @@
         "compile-sources",
         "frameworks",
         "resources",
+      ],
+      "package-product-members": [
+        {
+          "package": "FHIRModels",
+          "product-name": "ModelsR4",
+          "build-phase": { "build-phase": "frameworks" },
+        },
       ],
       "build-settings": {
         "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon",
