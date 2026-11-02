@@ -5,10 +5,10 @@ import ModelsR4
 final class ReportViewModel {
     private let networkService: NetworkService
     private let urlString: String
-    var reportName = "Lab Report"
-    var testPerformer = "Unknown"
-    var dateTime = ""
-    var observations: [VitalObservationModel] = []
+    private var dateTime = ""
+    private(set) var reportName = "Lab Report"
+    private(set) var testPerformer = "Unknown"
+    private(set) var observations: [VitalObservationModel] = []
     var summaryDate: String { dateTime.shortDate }
     var detailDate: String { dateTime.longDate }
 

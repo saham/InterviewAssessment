@@ -42,6 +42,18 @@ final class LabReportTests: XCTestCase {
         XCTAssertEqual(viewModel.observations.first?.testName, "Haemoglobin")
     }
     
+    func testStatus() {
+        func model(_ value: Double?, low: Double?, high: Double?) -> VitalObservationModel {
+            VitalObservationModel(testName: nil, value: value, unit: nil, rangeLow: low, rangeHigh: high)
+        }
+
+        XCTAssertEqual(model(5, low: 1, high: 10).status, .normal)
+        XCTAssertEqual(model(0, low: 1, high: 10).status, .low)
+        XCTAssertEqual(model(11, low: 1, high: 10).status, .high)
+        XCTAssertEqual(model(nil, low: 1, high: 10).status, .unknown)
+        XCTAssertEqual(model(5, low: nil, high: nil).status, .unknown)
+        XCTAssertEqual(model(5, low: nil, high: 10).status, .normal)
+    }
     func testLoadReportFailure() async {
         let mock = MockNetworkService(error: URLError(.notConnectedToInternet))
         let viewModel = ReportViewModel(urlString: "N/A", networkService: mock)

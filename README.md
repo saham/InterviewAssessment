@@ -45,4 +45,4 @@ LabReportTests/   unit tests, fake network service, data.json
 
 ## Unit tests
 
-Run with Cmd+U. They run offline using a saved copy of the response (data.json) and a fake network service. They cover the view model and the date/number helpers. No UI tests.
+They cover the view model, the in-range check and the date/number helpers. No UI tests.
