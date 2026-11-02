@@ -53,7 +53,10 @@ final class LabReportTests: XCTestCase {
         XCTAssertEqual(model(nil, low: 1, high: 10).status, .unknown)
         XCTAssertEqual(model(5, low: nil, high: nil).status, .unknown)
         XCTAssertEqual(model(5, low: nil, high: 10).status, .normal)
+        XCTAssertEqual(model(1, low: 1, high: 10).status, .normal)
+        XCTAssertEqual(model(10, low: 1, high: 10).status, .normal)
     }
+    
     func testLoadReportFailure() async {
         let mock = MockNetworkService(error: URLError(.notConnectedToInternet))
         let viewModel = ReportViewModel(urlString: "N/A", networkService: mock)
