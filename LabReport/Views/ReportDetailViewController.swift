@@ -89,6 +89,7 @@ class ReportDetailViewController: UIViewController {
         let label = UILabel()
         label.text = text
         label.font = font
+        label.numberOfLines = 0
         label.textColor = color
         return label
     }

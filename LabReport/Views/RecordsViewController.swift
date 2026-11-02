@@ -57,7 +57,6 @@ class RecordsViewController: UIViewController {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapLabCard))
         cardView.addGestureRecognizer(tapGesture)
-        cardView.isUserInteractionEnabled = true
         
         NSLayoutConstraint.activate([
             cardView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
@@ -79,15 +78,23 @@ class RecordsViewController: UIViewController {
             subtitleLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -16)
         ])
     }
+    
     private func fetchData() {
+        cardView.isUserInteractionEnabled = false
+        cardView.alpha = 0.5
         Task {
             do {
                 try await viewModel.loadReport()
+                cardView.isUserInteractionEnabled = true
+                cardView.alpha = 1
             } catch {
                 let alert = UIAlertController(title: "Unable to Load Report",
                                               message: error.localizedDescription,
                                               preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                alert.addAction(UIAlertAction(title: "Retry", style: .default) { _ in
+                    self.fetchData()
+                })
                 present(alert, animated: true)
             }
         }
