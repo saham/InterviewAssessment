@@ -57,6 +57,22 @@ final class LabReportTests: XCTestCase {
         XCTAssertEqual(model(10, low: 1, high: 10).status, .normal)
     }
     
+    func testRangeTextOpenEndedAndMissing() {
+        func model(low: Double?, high: Double?) -> VitalObservationModel {
+            VitalObservationModel(testName: nil, value: nil, unit: "g/L", rangeLow: low, rangeHigh: high)
+        }
+        XCTAssertEqual(model(low: 4.2, high: nil).rangeText, "≥ 4.2 g/L")
+        XCTAssertEqual(model(low: nil, high: 6.0).rangeText, "≤ 6.0 g/L")
+        XCTAssertEqual(model(low: nil, high: nil).rangeText, "N/A")
+    }
+    
+    func testResultAndRangeText() {
+        let observation = VitalObservationModel(testName: "Red cell count", value: 5.9, unit: "x10*12/L",
+                                        rangeLow: 4.2, rangeHigh: 6.0)
+        XCTAssertEqual(observation.resultText, "5.9 x10*12/L")
+        XCTAssertEqual(observation.rangeText, "4.2 x10*12/L - 6.0 x10*12/L")
+    }
+    
     func testLoadReportFailure() async {
         let mock = MockNetworkService(error: URLError(.notConnectedToInternet))
         let viewModel = ReportViewModel(urlString: "N/A", networkService: mock)

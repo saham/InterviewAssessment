@@ -20,4 +20,18 @@ extension VitalObservationModel {
         if let rangeHigh, value > rangeHigh { return .high }
         return (rangeLow == nil && rangeHigh == nil) ? .unknown : .normal
     }
+    
+    var resultText: String {
+        "\(value?.toString ?? "") \(unit ?? "")"
+    }
+    
+    var rangeText: String {
+        let unit = unit ?? ""
+        switch (rangeLow, rangeHigh) {
+        case let (low?, high?): return "\(low.toString) \(unit) - \(high.toString) \(unit)"
+        case let (low?, nil):   return "≥ \(low.toString) \(unit)"
+        case let (nil, high?):  return "≤ \(high.toString) \(unit)"
+        case (nil, nil):        return "N/A"
+        }
+    }
 }
