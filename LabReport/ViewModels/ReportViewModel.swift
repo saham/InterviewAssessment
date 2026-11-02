@@ -30,7 +30,7 @@ final class ReportViewModel {
                 report = value
             case .observation(let value):
                 if let id = value.id?.value?.string {
-                    observationsByReference["Observation/\(id)"] = value
+                    observationsByReference["\(AppConstant.FHIR.observation)/\(id)"] = value
                 }
             default:
                 break

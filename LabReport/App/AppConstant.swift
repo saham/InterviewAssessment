@@ -5,12 +5,17 @@ enum AppConstant {
         static let reportTitle = "Report Name"
         static let testPerformer = "Test Performer"
         static let resultDateAndTime = "Result Date and Time"
+    }
+    
+    enum FHIR {
         static let diagnosticReport = "DiagnosticReport"
         static let observation = "Observation"
     }
+    
     enum CellIdentifiers {
         static let observationCell = "ObservationCell"
     }
+    
     enum Network {
         static let urlString = "https://build.fhir.org/diagnosticreport-example.json"
         static let noEntries = "The response contains no data."

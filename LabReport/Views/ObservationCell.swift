@@ -55,23 +55,22 @@ class ObservationCell: UITableViewCell {
         ])
     }
     
-    func configure(with observation: VitalObservationModel, valueColor: UIColor) {
+    func configure(with observation: VitalObservationModel) {
         titleLabel.text = observation.testName ?? "Unknown Test"
-        let observationValue = observation.value?.toString ?? ""
-        let observationUnit = observation.unit ?? ""
-       
-        switch (observation.rangeLow, observation.rangeHigh) {
-        case let (low?, high?):
-            rangeLabel.text = "Normal Range  \(low) \(observationUnit) - \(high) \(observationUnit)"
-        case let (low?, nil):
-            rangeLabel.text = "Normal Range  ≥ \(low) \(observationUnit)"
-        case let (nil, high?):
-            rangeLabel.text = "Normal Range  ≤ \(high) \(observationUnit)"
-        case (nil, nil):
-            rangeLabel.text = "Normal Range  N/A"
-        }
+        let value = observation.value?.toString ?? ""
+        let unit = observation.unit ?? ""
+        rangeLabel.text = "Normal Range  \(rangeText(for: observation, unit: unit))"
         resultLabel.setText("Result",
-                            coloredValue: "\(observationValue) \(observationUnit)",
-                            color: valueColor)
+                            coloredValue: "\(value) \(unit)",
+                            color: observation.status.color)
+    }
+    
+    private func rangeText(for observation: VitalObservationModel, unit: String) -> String {
+        switch (observation.rangeLow, observation.rangeHigh) {
+        case let (low?, high?): return "\(low) \(unit) - \(high) \(unit)"
+        case let (low?, nil):   return "≥ \(low) \(unit)"
+        case let (nil, high?):  return "≤ \(high) \(unit)"
+        case (nil, nil):        return "N/A"
+        }
     }
 }

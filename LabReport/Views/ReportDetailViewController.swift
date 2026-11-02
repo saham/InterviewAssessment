@@ -105,15 +105,7 @@ extension ReportDetailViewController: UITableViewDelegate, UITableViewDataSource
             return UITableViewCell()
         }
         let observation = viewModel.observations[indexPath.row]
-        cell.configure(with: observation, valueColor: valueColor(for: observation))
+        cell.configure(with: observation)
         return cell
-    }
-
-    private func valueColor(for observation: VitalObservationModel) -> UIColor {
-        guard let value = observation.value else { return .label }
-        if let high = observation.rangeHigh, value > high { return .systemRed }
-        if let low = observation.rangeLow, value < low { return .systemYellow }
-        if observation.rangeLow != nil || observation.rangeHigh != nil { return .systemGreen }
-        return .label
     }
 }

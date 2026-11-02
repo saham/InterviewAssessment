@@ -66,7 +66,7 @@ class LabSummaryViewController: UIViewController {
 
     private func setupUI() {
         view.backgroundColor = .systemGroupedBackground
-        title = "Lab and Diagnostics"
+        title = AppConstant.Titles.labTitle
         
         view.addSubview(cardView)
         cardView.addSubview(titleLabel)
