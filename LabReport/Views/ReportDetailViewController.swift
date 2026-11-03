@@ -7,7 +7,6 @@ class ReportDetailViewController: UIViewController {
         let view = UIView()
         view.backgroundColor = .systemBackground
         view.translatesAutoresizingMaskIntoConstraints = false
-
         let stack = UIStackView(arrangedSubviews: [
             createFieldStack(title: AppConstant.Titles.reportTitle,
                              subTitle: viewModel.reportName),
@@ -28,19 +27,26 @@ class ReportDetailViewController: UIViewController {
             stack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             stack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
         ])
-
+        return view
+    }()
+    
+    private let dividerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .separator
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private lazy var tableView: UITableView = {
-        let tv = UITableView(frame: .zero, style: .plain)
-        tv.translatesAutoresizingMaskIntoConstraints = false
-        tv.delegate = self
-        tv.dataSource = self
-        tv.backgroundColor = .systemBackground
-        tv.register(ObservationCell.self,
+        let table = UITableView(frame: .zero, style: .plain)
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.delegate = self
+        table.dataSource = self
+        table.separatorStyle = .none
+        table.backgroundColor = .systemBackground
+        table.register(ObservationCell.self,
                     forCellReuseIdentifier: AppConstant.CellIdentifiers.observationCell)
-        return tv
+        return table
     }()
 
     init(viewModel: ReportViewModel) {
@@ -60,15 +66,21 @@ class ReportDetailViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .systemBackground
         title = viewModel.reportName
-
         view.addSubview(summaryView)
+        view.addSubview(dividerView)
         view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
             summaryView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             summaryView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             summaryView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: summaryView.bottomAnchor),
+            
+            dividerView.topAnchor.constraint(equalTo: summaryView.bottomAnchor),
+            dividerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            dividerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            dividerView.heightAnchor.constraint(equalToConstant: 1),
+            
+            tableView.topAnchor.constraint(equalTo: dividerView.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -89,6 +101,7 @@ class ReportDetailViewController: UIViewController {
         let label = UILabel()
         label.text = text
         label.font = font
+        label.numberOfLines = 0
         label.textColor = color
         return label
     }
@@ -104,15 +117,7 @@ extension ReportDetailViewController: UITableViewDelegate, UITableViewDataSource
             return UITableViewCell()
         }
         let observation = viewModel.observations[indexPath.row]
-        cell.configure(with: observation, valueColor: valueColor(for: observation))
+        cell.configure(with: observation)
         return cell
-    }
-
-    private func valueColor(for observation: VitalObservationModel) -> UIColor {
-        guard let value = observation.value else { return .label }
-        if let high = observation.rangeHigh, value > high { return .systemRed }
-        if let low = observation.rangeLow, value < low { return .systemYellow }
-        if observation.rangeLow != nil || observation.rangeHigh != nil { return .systemGreen }
-        return .label
     }
 }

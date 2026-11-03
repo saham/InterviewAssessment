@@ -8,7 +8,6 @@ extension UIViewController {
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = title
     }
 }

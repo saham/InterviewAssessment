@@ -25,9 +25,9 @@ final class ReportViewModel {
                   let resourceType = resource.resourceType else { continue }
             
             switch resourceType {
-            case AppConstant.Titles.diagnosticReport:
+            case AppConstant.FHIR.diagnosticReport:
                 report = resource
-            case AppConstant.Titles.observation:
+            case AppConstant.FHIR.observation:
                 if let id = resource.id {
                     observationsByReference["Observation/\(id)"] = resource
                 }

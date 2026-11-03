@@ -27,6 +27,7 @@ class ObservationCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
         setupUI()
     }
     
@@ -55,23 +56,11 @@ class ObservationCell: UITableViewCell {
         ])
     }
     
-    func configure(with observation: VitalObservationModel, valueColor: UIColor) {
+    func configure(with observation: VitalObservationModel) {
         titleLabel.text = observation.testName ?? "Unknown Test"
-        let observationValue = observation.value?.toString ?? ""
-        let observationUnit = observation.unit ?? ""
-       
-        switch (observation.rangeLow, observation.rangeHigh) {
-        case let (low?, high?):
-            rangeLabel.text = "Normal Range  \(low) \(observationUnit) - \(high) \(observationUnit)"
-        case let (low?, nil):
-            rangeLabel.text = "Normal Range  ≥ \(low) \(observationUnit)"
-        case let (nil, high?):
-            rangeLabel.text = "Normal Range  ≤ \(high) \(observationUnit)"
-        case (nil, nil):
-            rangeLabel.text = "Normal Range  N/A"
-        }
+        rangeLabel.text = "Normal Range  \(observation.rangeText)"
         resultLabel.setText("Result",
-                            coloredValue: "\(observationValue) \(observationUnit)",
-                            color: valueColor)
+                            coloredValue: observation.resultText,
+                            color: observation.status.color)
     }
 }

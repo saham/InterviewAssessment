@@ -4,15 +4,7 @@ class LabSummaryViewController: UIViewController {
 
     private let viewModel: ReportViewModel
 
-    private let cardView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemBackground
-        view.layer.cornerRadius = 12
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.systemGray5.cgColor
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private let cardView = CardView()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
