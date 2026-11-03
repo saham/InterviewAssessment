@@ -51,8 +51,7 @@ They cover the view model, the in-range check, the result and range text, and th
 
 ## Screenshots
 
-<img width="330" height="717" alt="Home" src="https://github.com/user-attachments/assets/ae859e0b-b496-4627-8a2a-9a12aab8d3ad" />
-<img width="330" height="717" alt="Report" src="https://github.com/user-attachments/assets/1b7a20c1-927f-4689-91a6-e28726620fc5" />
-<img width="330" height="717" alt="Report Summary" src="https://github.com/user-attachments/assets/f72c9910-39c3-4120-8c64-d1faf97fbd55" />
-<img width="330" height="717" alt="Report Detail" src="https://github.com/user-attachments/assets/828b7ca8-1d86-4de8-829f-5941070b39d1" />
+| Home | Report | Report Summary | Report Detail |
+| :---: | :---: | :---: | :---: |
+| <img src="https://github.com/user-attachments/assets/ae859e0b-b496-4627-8a2a-9a12aab8d3ad" width="160" /> | <img src="https://github.com/user-attachments/assets/1b7a20c1-927f-4689-91a6-e28726620fc5" width="160" /> | <img src="https://github.com/user-attachments/assets/f72c9910-39c3-4120-8c64-d1faf97fbd55" width="160" /> | <img src="https://github.com/user-attachments/assets/828b7ca8-1d86-4de8-829f-5941070b39d1" width="160" /> |
 
