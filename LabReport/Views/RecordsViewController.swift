@@ -3,23 +3,15 @@ import UIKit
 class RecordsViewController: UIViewController {
     private let viewModel = ReportViewModel(urlString: AppConstant.Network.urlString, networkService: NetworkService())
 
-    private let cardView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemBackground
-        view.layer.cornerRadius = 12
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.systemGray5.cgColor
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private let cardView = CardView()
     
     private let iconImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.image = .stethoscope
-        iv.tintColor = .systemBlue
-        iv.contentMode = .scaleAspectFit
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        return iv
+        let imageView = UIImageView()
+        imageView.image = .stethoscope
+        imageView.tintColor = .systemBlue
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
     
     private let titleLabel: UILabel = {
@@ -55,7 +47,7 @@ class RecordsViewController: UIViewController {
         cardView.addSubview(titleLabel)
         cardView.addSubview(subtitleLabel)
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapLabCard))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cardTapped))
         cardView.addGestureRecognizer(tapGesture)
         
         NSLayoutConstraint.activate([
@@ -100,7 +92,7 @@ class RecordsViewController: UIViewController {
         }
     }
 
-    @objc private func didTapLabCard() {
+    @objc private func cardTapped() {
         let summaryVC = LabSummaryViewController(viewModel: viewModel)
         navigationController?.pushViewController(summaryVC, animated: true)
     }

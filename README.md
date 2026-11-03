@@ -19,6 +19,7 @@ ModelsR4 from https://github.com/apple/FHIRModels.git (0.9.4) through SPM. I onl
 ## Structure
 
 MVVM. NetworkService downloads and decodes the JSON. ReportViewModel finds the report and its observations and turns them into VitalObservationModel. The view controllers just show what the view model has. The network service is passed into the view model so tests can swap it.
+VitalObservationModel also builds the result and range text, so the cell only displays it.
 
 ```
 App/          AppConstant, AppDelegate, SceneDelegate
@@ -28,7 +29,7 @@ Models/       VitalObservationModel
 Network/      NetworkService, ReportError
 ViewModels/   ReportViewModel
 Views/        HomeViewController, LabSummaryViewController, ObservationCell,
-              RecordsViewController, ReportDetailViewController
+              RecordsViewController, ReportDetailViewController, CardView
 LabReportTests/   unit tests, fake network service, data.json
 ```
 
@@ -41,8 +42,9 @@ LabReportTests/   unit tests, fake network service, data.json
 - Normal range uses the first reference range. One boundary shows ≥ or ≤, no boundary shows N/A.
 - Some tests appear twice (% and count). I assumed they are separate observations, and I kept both.
 - Values are rounded to 6 decimals.
-- I didn't use the interpretation field from the data. Color comes from the normal range.
+- Result coloring is an extra, not part of the requirements. It comes from the normal range, not the data's interpretation field.
+- One flow only: Report tab (screen title "Records") → Lab Summary → Report Detail, so the navigation bar styling carries over.
 
 ## Unit tests
 
-They cover the view model, the in-range check and the date/number helpers. No UI tests.
+They cover the view model, the in-range check, the result and range text, and the date/number helpers. NetworkService, the view controllers and other UI code are not unit tested. No UI tests.
