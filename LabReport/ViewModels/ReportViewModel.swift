@@ -26,11 +26,11 @@ final class ReportViewModel {
 
         for entry in entries {
             switch entry.resource {
-            case .diagnosticReport(let value):
-                report = value
-            case .observation(let value):
-                if let id = value.id?.value?.string {
-                    observationsByReference["\(AppConstant.FHIR.observation)/\(id)"] = value
+            case .diagnosticReport(let r):
+                report = r
+            case .observation(let o):
+                if let id = o.id?.value?.string {
+                    observationsByReference["\(AppConstant.FHIR.observation)/\(id)"] = o
                 }
             default:
                 break
