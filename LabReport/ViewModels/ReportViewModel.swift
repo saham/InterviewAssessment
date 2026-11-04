@@ -22,7 +22,7 @@ final class ReportViewModel {
         guard let entries = bundle.entry else { throw ReportError.noEntries }
         
         var report: DiagnosticReport?
-        var observationsByReference: [String: Observation] = [:]
+        var observationsByID: [String: Observation] = [:]
         
         for entry in entries {
             switch entry.resource {
@@ -30,7 +30,7 @@ final class ReportViewModel {
                 report = r // One report per bundle
             case .observation(let o):
                 if let id = o.id?.value?.string {
-                    observationsByReference["\(AppConstant.FHIR.observation)/\(id)"] = o
+                    observationsByID["\(AppConstant.FHIR.observation)/\(id)"] = o
                 }
             default:
                 break
@@ -40,7 +40,8 @@ final class ReportViewModel {
         guard let report else { throw ReportError.noReport }
         
         reportName = report.code.text?.value?.string ?? "Lab Report"
-        // Only first performer
+        
+        // Only first test performer
         testPerformer = report.performer?.first?.display?.value?.string ?? "Unknown"
         
         var effective: String?
@@ -53,7 +54,7 @@ final class ReportViewModel {
         dateTime = effective ?? report.issued?.value?.description ?? ""
         observations = (report.result ?? []).compactMap {
             guard let key = $0.reference?.value?.string,
-                  let observation = observationsByReference[key] else { return nil }
+                  let observation = observationsByID[key] else { return nil }
             
             var quantity: Quantity?
             switch observation.value {
