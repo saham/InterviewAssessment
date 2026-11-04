@@ -43,8 +43,11 @@ final class ReportViewModel {
         testPerformer = report.performer?.first?.display?.value?.string ?? "Unknown"
 
         var effective: String?
-        if case .dateTime(let value)? = report.effective {
+        switch report.effective {
+        case .dateTime(let value):
             effective = value.value?.description
+        default:
+            break
         }
         dateTime = effective ?? report.issued?.value?.description ?? ""
         observations = (report.result ?? []).compactMap { reference in
@@ -52,8 +55,11 @@ final class ReportViewModel {
                   let observation = observationsByReference[key] else { return nil }
 
             var quantity: Quantity?
-            if case .quantity(let value)? = observation.value {
-                quantity = value
+            switch observation.value {
+            case .quantity(let q)?:
+                quantity = q
+            default:
+                break
             }
             let range = observation.referenceRange?.first
 
