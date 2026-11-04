@@ -27,7 +27,7 @@ final class ReportViewModel {
         for entry in entries {
             switch entry.resource {
             case .diagnosticReport(let r):
-                report = r
+                report = r // One report per bundle (see README assumptions)
             case .observation(let o):
                 if let id = o.id?.value?.string {
                     observationsByReference["\(AppConstant.FHIR.observation)/\(id)"] = o

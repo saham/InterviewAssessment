@@ -35,7 +35,8 @@ LabReportTests/   unit tests, fake network service, data.json
 
 ## Assumptions
 
-- The response has one report. If there were more, only the last one is used.
+- The response has one report. If there were more, only the last one is used. 
+To improve this, LabSummaryViewController could list multiple reports.
 - Observations are matched to the report by id (Observation/r1). Missing ones are skipped.
 - Date is shown as recorded, no timezone conversion. Uses effectiveDateTime, or issued if that's missing.
 - Only numeric results (valueQuantity) are shown.
