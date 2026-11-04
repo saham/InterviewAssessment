@@ -11,19 +11,19 @@ final class ReportViewModel {
     private(set) var observations: [VitalObservationModel] = []
     var summaryDate: String { dateTime.shortDate }
     var detailDate: String { dateTime.longDate }
-
+    
     init(urlString: String, networkService: NetworkService) {
         self.urlString = urlString
         self.networkService = networkService
     }
-
+    
     func loadReport() async throws {
         let bundle = try await networkService.fetchDiagnosticReport(from: urlString)
         guard let entries = bundle.entry else { throw ReportError.noEntries }
-
+        
         var report: DiagnosticReport?
         var observationsByReference: [String: Observation] = [:]
-
+        
         for entry in entries {
             switch entry.resource {
             case .diagnosticReport(let r):
@@ -36,12 +36,12 @@ final class ReportViewModel {
                 break
             }
         }
-
+        
         guard let report else { throw ReportError.noReport }
-
+        
         reportName = report.code.text?.value?.string ?? "Lab Report"
         testPerformer = report.performer?.first?.display?.value?.string ?? "Unknown"
-
+        
         var effective: String?
         switch report.effective {
         case .dateTime(let value)?:
@@ -50,10 +50,10 @@ final class ReportViewModel {
             break
         }
         dateTime = effective ?? report.issued?.value?.description ?? ""
-        observations = (report.result ?? []).compactMap { reference in
-            guard let key = reference.reference?.value?.string,
+        observations = (report.result ?? []).compactMap {
+            guard let key = $0.reference?.value?.string,
                   let observation = observationsByReference[key] else { return nil }
-
+            
             var quantity: Quantity?
             switch observation.value {
             case .quantity(let q)?:
@@ -62,7 +62,7 @@ final class ReportViewModel {
                 break
             }
             let range = observation.referenceRange?.first
-
+            
             return VitalObservationModel(
                 testName: observation.code.text?.value?.string,
                 value: quantity?.toDouble,
