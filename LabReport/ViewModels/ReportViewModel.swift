@@ -44,7 +44,7 @@ final class ReportViewModel {
 
         var effective: String?
         switch report.effective {
-        case .dateTime(let value):
+        case .dateTime(let value)?:
             effective = value.value?.description
         default:
             break
