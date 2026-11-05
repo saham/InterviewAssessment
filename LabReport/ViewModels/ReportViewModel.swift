@@ -40,7 +40,7 @@ final class ReportViewModel {
         reportName = report.code?.text ?? "Lab Report"
         //The first performer is used
         testPerformer = report.performer?.first?.display ?? "Unknown"
-        dateTime = report.effectiveDateTime ?? report.issued ?? ""
+        dateTime = report.effectiveDateTime ?? ""
         
         observations = (report.result ?? []).compactMap {
             guard let key = $0.reference,
