@@ -18,7 +18,7 @@ final class ReportViewModel {
         guard let entries = bundle.entry else { throw ReportError.noEntries }
         
         var report: Resource?
-        var observationsByReference: [String: Resource] = [:]
+        var observationsByID: [String: Resource] = [:]
         
         for entry in entries {
             guard let resource = entry.resource,
@@ -26,10 +26,10 @@ final class ReportViewModel {
             
             switch resourceType {
             case AppConstant.FHIR.diagnosticReport:
-                report = resource
+                report = resource //One report per
             case AppConstant.FHIR.observation:
                 if let id = resource.id {
-                    observationsByReference["Observation/\(id)"] = resource
+                    observationsByID["Observation/\(id)"] = resource
                 }
             default: break
             }
@@ -38,12 +38,13 @@ final class ReportViewModel {
         guard let report else { throw ReportError.noReport }
         
         reportName = report.code?.text ?? "Lab Report"
+        //The first performer is used
         testPerformer = report.performer?.first?.display ?? "Unknown"
         dateTime = report.effectiveDateTime ?? report.issued ?? ""
         
-        observations = (report.result ?? []).compactMap { reference in
-            guard let key = reference.reference,
-                  let resource = observationsByReference[key] else { return nil }
+        observations = (report.result ?? []).compactMap {
+            guard let key = $0.reference,
+                  let resource = observationsByID[key] else { return nil }
             return VitalObservationModel(
                 testName: resource.code?.text,
                 value: resource.valueQuantity?.value,
