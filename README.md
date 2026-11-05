@@ -41,6 +41,7 @@ To improve this, LabSummaryViewController could list multiple reports.
 - Test performer uses the first performer's display name. The data has one per report.
 - effectiveDateTime is shown as recorded, no timezone conversion.
 - Only numeric results (valueQuantity) are shown.
+- Current JSON has only 1 "referenceRange" hence the code uses the first referenceRange in an observation 
 - Normal range uses the first reference range. 
   - One boundary shows ≥ or ≤.
   - No boundary shows N/A.

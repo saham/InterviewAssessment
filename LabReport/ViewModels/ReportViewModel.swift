@@ -63,6 +63,7 @@ final class ReportViewModel {
             default:
                 break
             }
+            // Only the first range is used
             let range = observation.referenceRange?.first
             
             return VitalObservationModel(
