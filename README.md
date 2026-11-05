@@ -44,6 +44,7 @@ To improve this, LabSummaryViewController could list multiple reports.
 - Normal range uses the first reference range. 
   - One boundary shows ≥ or ≤. 
   - No boundary shows N/A.
+- Current JSON has only 1 "referenceRange" hence the code uses the first referenceRange in an observation 
 - Some tests appear twice (% and count). I assumed they are separate observations, and I kept both.
 - Result coloring is an extra, not part of the requirements. It comes from the normal range, not the data's interpretation field.
 - Report Tab has "Records" on  the navigatiob bar and "Report" on tabbar. This is to mach sepecification

@@ -45,12 +45,16 @@ final class ReportViewModel {
         observations = (report.result ?? []).compactMap {
             guard let key = $0.reference,
                   let resource = observationsByID[key] else { return nil }
+            
+            // Only the first range used
+            let range = resource.referenceRange?.first
+            
             return VitalObservationModel(
                 testName: resource.code?.text,
                 value: resource.valueQuantity?.value,
                 unit: resource.valueQuantity?.unit,
-                rangeLow: resource.referenceRange?.first?.low?.value,
-                rangeHigh: resource.referenceRange?.first?.high?.value
+                rangeLow: range?.low?.value,
+                rangeHigh: range?.high?.value
             )
         }
     }
