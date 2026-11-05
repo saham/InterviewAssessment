@@ -51,7 +51,7 @@ final class ReportViewModel {
         default:
             break
         }
-        dateTime = effective ?? report.issued?.value?.description ?? ""
+        dateTime = effective ?? ""
         observations = (report.result ?? []).compactMap {
             guard let key = $0.reference?.value?.string,
                   let observation = observationsByID[key] else { return nil }
