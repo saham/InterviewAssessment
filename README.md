@@ -16,7 +16,7 @@ git checkout feature/R4Model
 ## Dependencies
 ModelsR4 from https://github.com/apple/FHIRModels.git (0.9.4) through SPM. I only used it to decode the JSON, then mapped it to my own VitalObservationModel.
 
-## Structure
+## Architecture
 
 MVVM. NetworkService downloads and decodes the JSON. ReportViewModel finds the report and its observations and turns them into VitalObservationModel. The view controllers just show what the view model has. The network service is passed into the view model so tests can swap it.
 VitalObservationModel also builds the result and range text, so the cell only displays it.
