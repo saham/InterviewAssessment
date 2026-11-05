@@ -41,10 +41,13 @@ To improve this, LabSummaryViewController could list multiple reports.
 - Test performer uses the first performer's display name. The data has one per report.
 - effectiveDateTime is shown as recorded, no timezone conversion.
 - Only numeric results (valueQuantity) are shown.
-- Normal range uses the first reference range. One boundary shows ≥ or ≤, no boundary shows N/A.
-- Some tests appear twice (% and count). I assumed they are separate observations, and I kept both.
+- Normal range uses the first reference range. 
+  - One boundary shows ≥ or ≤.
+  - No boundary shows N/A.
+- Some tests appear twice (% and count). I assumed they are separate observations and I kept both.
 - Values are rounded to 6 decimals.
 - Result coloring is an extra, not part of the requirements. It comes from the normal range, not the data's interpretation field.
+- Report Tab has "Records" on  the navigatiob bar and "Report" on tabbar. This is to mach sepecification
 - One flow only: Report tab (screen title "Records") → Lab Summary → Report Detail, so the navigation bar styling carries over.
 
 ## Unit tests
