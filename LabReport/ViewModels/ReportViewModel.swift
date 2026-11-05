@@ -26,7 +26,7 @@ final class ReportViewModel {
             
             switch resourceType {
             case AppConstant.FHIR.diagnosticReport:
-                report = resource //One report per
+                report = resource //One report per entry
             case AppConstant.FHIR.observation:
                 if let id = resource.id {
                     observationsByID["Observation/\(id)"] = resource
