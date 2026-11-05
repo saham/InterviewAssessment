@@ -47,7 +47,7 @@ To improve this, LabSummaryViewController could list multiple reports.
 - Some lab tests appear twice (% and count). I assumed they are separate observations and I kept both.
 - Values are rounded to 6 decimals.
 - Result coloring is an extra, not part of the requirements. It comes from the normal range, not the data's interpretation field.
-- Report tab has "Records" on the navigation bar and "Report" on the tab bar. This is to match specification
+- Report tab has "Records" on the navigation bar and "Report" on the tab bar. This is to match specification.
 - One flow only: Report tab (screen title "Records") → Lab Summary → Report Detail, so the navigation bar styling carries over.
 
 ## Unit tests
