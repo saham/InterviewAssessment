@@ -41,13 +41,13 @@ To improve this, LabSummaryViewController could list multiple reports.
 - Test performer uses the first performer's display name. The data has one per report.
 - effectiveDateTime is shown as recorded, no timezone conversion. An effectivePeriod is not decoded.
 - Only numeric results (valueQuantity) are shown. Other value types are not decoded.
-- Normal range uses the first reference range. 
-  - One boundary shows ≥ or ≤. 
+- Normal range uses the first reference range. The sample data has one range per observation
+  - One boundary shows ≥ or ≤.
   - No boundary shows N/A.
 - Current JSON has only 1 "referenceRange" hence the code uses the first referenceRange in an observation 
 - Some tests appear twice (% and count). I assumed they are separate observations, and I kept both.
 - Result coloring is an extra, not part of the requirements. It comes from the normal range, not the data's interpretation field.
-- Report Tab has "Records" on  the navigatiob bar and "Report" on tabbar. This is to mach sepecification
+-  Report tab has "Records" on the navigation bar and "Report" on the tab bar. This is to match specification.
 - One flow only: Report tab  → Lab Summary → Report Detail, so the navigation bar styling carries over.
 
 ## Unit tests
