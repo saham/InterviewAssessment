@@ -18,8 +18,12 @@ None. The JSON is decoded with my own Codable structs in FHIRData.swift, then ma
 
 ## Structure
 
-MVVM. NetworkService downloads and decodes the JSON. ReportViewModel finds the report and its observations and turns them into VitalObservationModel. The view controllers just show what the view model has. 
-VitalObservationModel also builds the result and range text, so the cell only displays it.
+###MVVM. 
+- NetworkService downloads and decodes the JSON.
+- ReportViewModel finds the report and its observations and turns them into VitalObservationModel.
+- VitalObservationModel also builds the result and range text, so the cell only displays it.
+- The view controllers just show what the view model has.
+- The network service is passed into the view model so tests can swap it.
 
 ```
 App/          AppConstant, AppDelegate, SceneDelegate
