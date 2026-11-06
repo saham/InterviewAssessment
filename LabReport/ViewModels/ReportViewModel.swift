@@ -27,7 +27,7 @@ final class ReportViewModel {
         for entry in entries {
             switch entry.resource {
             case .diagnosticReport(let r):
-                report = r // One report per bundle
+                report = r // One report per bundle(See README.md)
             case .observation(let o):
                 if let id = o.id?.value?.string {
                     observationsByID["\(AppConstant.FHIR.observation)/\(id)"] = o
@@ -41,7 +41,7 @@ final class ReportViewModel {
         
         reportName = report.code.text?.value?.string ?? "Lab Report"
         
-        // Only first test performer
+        // Only first test performer(See README.md)
         testPerformer = report.performer?.first?.display?.value?.string ?? "Unknown"
         
         var effective: String?
@@ -63,7 +63,7 @@ final class ReportViewModel {
             default:
                 break
             }
-            // Only the first range is used
+            // Only the first range is used(See README.md)
             let range = observation.referenceRange?.first
             
             return VitalObservationModel(
