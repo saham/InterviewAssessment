@@ -1,4 +1,5 @@
 import UIKit
+
 extension UILabel {
     func setText(_ prefix: String, coloredValue value: String, color: UIColor) {
         let attributedString = NSMutableAttributedString(string: "\(prefix) ")

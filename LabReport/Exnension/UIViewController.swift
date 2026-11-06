@@ -1,4 +1,5 @@
 import UIKit
+
 extension UIViewController {
     func adjustNavigationBar(title:String = "Home") {
         let appearance = UINavigationBarAppearance()

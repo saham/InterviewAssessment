@@ -1,6 +1,8 @@
 import UIKit
+
 @MainActor
 class RecordsViewController: UIViewController {
+    
     private let viewModel = ReportViewModel(urlString: AppConstant.Network.urlString, networkService: NetworkService())
 
     private let cardView = CardView()

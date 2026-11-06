@@ -1,5 +1,7 @@
 import UIKit
+
 final class CardView: UIView {
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .systemBackground

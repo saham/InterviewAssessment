@@ -1,4 +1,5 @@
 import Foundation
+
 enum ReportError: LocalizedError {
     case noEntries
     case noReport

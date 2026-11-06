@@ -1,4 +1,5 @@
 import UIKit
+
 class ObservationCell: UITableViewCell {
     
     private let titleLabel: UILabel = {
